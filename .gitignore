@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Archivos de entorno
+.env
+
+# Archivos de log
+*.log
+
+# Archivos temporales y de caché
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de test y coverage
+coverage/
+*.test.js
+*.spec.js
+
+# Directorios de construcción
+dist/
+build/
+
+# Configuraciones específicas de IDEs
+.vscode/
+.idea/
+
+# Otros archivos que no quieras subir
+*.swp
+*.swo
