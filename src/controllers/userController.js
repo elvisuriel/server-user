@@ -194,3 +194,21 @@ export const updateUserQuestionsAdmin = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor' });
     }
 };
+// Obtener todos los usuarios (solo para administradores)
+export const getAllUsersAdmin = async (req, res) => {
+    try {
+        // Verificar si el usuario es administrador
+        if (!req.user.isAdmin) {
+            return res.status(403).json({ message: 'Acceso denegado' });
+        }
+
+        // Obtener todos los usuarios sin incluir la contraseña
+        const users = await User.find().select('-password');
+
+        // Devolver la lista de usuarios
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};

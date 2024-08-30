@@ -1,8 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRoutes from './src/routes/userRoutes.js';
 import path from 'path';
+import cors from 'cors';
+import userRoutes from './src/routes/userRoutes.js';
+
 
 dotenv.config();
 
@@ -19,11 +21,16 @@ mongoose.connect(process.env.MONGO_URI, {
     .then(() => console.log('Conectado a MongoDB'))
     .catch((error) => console.error('Error al conectar a MongoDB:', error));
 
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://...'],
+    credentials: true,
+}));
+
 // Rutas
 app.use('/api/users', userRoutes);
 
 // Servir imágenes estáticas
 app.use('/uploads', express.static(path.resolve('./uploads')));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
