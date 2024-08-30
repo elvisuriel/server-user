@@ -26,7 +26,7 @@ const renderTemplate = (templatePath, variables) => {
 
 // Registro de Usuario
 export const registerUser = async (req, res) => {
-    const { username, email, password, questions, image } = req.body;
+    const { username, lastname, phone, country, email, password, questions, image } = req.body;
 
     try {
         // Verificar si el usuario ya existe
@@ -42,6 +42,9 @@ export const registerUser = async (req, res) => {
         // Crear el nuevo usuario
         const user = await User.create({
             username,
+            lastname,
+            phone,
+            country,
             email,
             password: hashedPassword,
             questions,
