@@ -1,12 +1,15 @@
 import express from 'express';
+import multer from 'multer';
 import { registerUser, loginUser, getMyDetails, getUserDetailsAdmin, updateUserQuestionsAdmin } from '../../src/controllers/userController.js';
+import { uploadImageToCloudinary } from "../../src/controllers/image.controller.js";
 import { authenticateToken, authenticateAdmin } from '../middleware/userMiddleware.js';
 
 const router = express.Router();
-
+const upload = multer({ dest: 'uploads/' });
 // Registro y Login
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.post('/upload-image', upload.single('image'), uploadImageToCloudinary);
 
 // Ruta para que el usuario vea su propia información
 router.get('/me', authenticateToken, getMyDetails);
