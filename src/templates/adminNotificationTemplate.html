@@ -4,30 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Usuario Registrado</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             color: #333;
-            margin: 0;
-            padding: 0;
         }
 
         .container {
-            width: 100%;
-            max-width: 600px;
+            width: 80%;
             margin: 0 auto;
-            background-color: #ffffff;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
         }
 
         h1 {
-            color: #4CAF50;
+            color: #007BFF;
         }
 
-        p {
-            line-height: 1.6;
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
         }
 
         .logo {
@@ -42,9 +45,8 @@
 
         .footer {
             margin-top: 20px;
-            font-size: 12px;
-            color: #999;
-            text-align: center;
+            font-size: 0.8em;
+            color: #777;
         }
     </style>
 </head>
@@ -55,15 +57,14 @@
             <img src="https://res.cloudinary.com/dybws2ubw/image/upload/v1724977736/WePlot_jpqsfb.png"
                 alt="WePlot Logo">
         </div>
-        <h1>¡Bienvenido a WePlot, {{username}}!</h1>
-        <p>Estamos emocionados de tenerte con nosotros. Aquí tienes un resumen de tu cuenta:</p>
+        <h1>Nuevo Usuario Registrado</h1>
+        <p>Se ha registrado un nuevo usuario:</p>
         <ul>
             <li><strong>Nombre de usuario:</strong> {{username}}</li>
             <li><strong>Email:</strong> {{email}}</li>
         </ul>
-        <p>¡Esperamos que disfrutes de tu experiencia con WePlot!</p>
         <div class="footer">
-            <p>© 2024 WePlot. Todos los derechos reservados.</p>
+            <p>Gracias por usar nuestro servicio.</p>
         </div>
     </div>
 </body>

@@ -1,3 +1,7 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import path from 'path';
+import fs from 'fs';
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -5,6 +9,10 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+// Obtener el directorio actual del archivo
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Función para cargar y reemplazar variables en la plantilla
 const renderTemplate = (templatePath, variables) => {
@@ -15,7 +23,6 @@ const renderTemplate = (templatePath, variables) => {
     }
     return template;
 };
-
 
 // Registro de Usuario
 export const registerUser = async (req, res) => {
@@ -50,20 +57,28 @@ export const registerUser = async (req, res) => {
             },
         });
 
+        // Cargar la plantilla HTML
+        const emailTemplatePath = path.join(__dirname, '../templates/welcomeEmailTemplate.html'); // Ajusta la ruta según sea necesario
+        const emailHtml = renderTemplate(emailTemplatePath, { username, email });
+
         // Opciones de correo para el usuario
         const mailOptionsUser = {
             from: process.env.EMAIL_USER,
             to: user.email, // Correo del usuario registrado
             subject: 'Registro Exitoso',
-            text: `Hola ${user.username}, ¡te has registrado exitosamente!`,
+            html: emailHtml,
         };
+        // Cargar la plantilla HTML para el administrador
+        const adminEmailTemplatePath = path.join(__dirname, '../templates/adminNotificationTemplate.html');
+        const adminEmailHtml = renderTemplate(adminEmailTemplatePath, { username, email });
+
 
         // Opciones de correo para el administrador
         const mailOptionsAdmin = {
             from: process.env.EMAIL_USER,
             to: process.env.ADMIN_EMAIL, // Correo del administrador
             subject: 'Nuevo Usuario Registrado',
-            text: `Se ha registrado un nuevo usuario: \n\nNombre: ${user.username}\nEmail: ${user.email}`,
+            html: adminEmailHtml,
         };
 
         // Enviar correo al usuario
@@ -89,7 +104,6 @@ export const registerUser = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor' });
     }
 };
-
 
 // Autenticación de Usuario
 export const loginUser = async (req, res) => {
